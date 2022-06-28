@@ -20,12 +20,13 @@ if($_POST['senha'] != $_POST['senha1']){
     echo" Senhas divergentes ";
 
 }else{
-    /* $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
+    
+    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
     $result = $pdo->prepare($sql);
     $result->bindParam(':nome', $_POST['nome']);
     $result->bindParam(':email', $_POST['email']);
     $result->bindParam(':senha', $_POST['senha']);
-    $result->execute(); */
+    $result->execute();
     
 }
 

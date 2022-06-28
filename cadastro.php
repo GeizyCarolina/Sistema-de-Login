@@ -52,7 +52,7 @@
 
                     <div id="resp"></div>
                     <div id="resp1"></div>
-                    <small>Já possui uma conta ?<a href="cadastro.php"> Login</a></small>
+                    <small>Já possui uma conta ?<a href="index.php"> Login</a></small>
                 </form>
             </div>
         </div>
@@ -108,7 +108,6 @@
                     }
                 });
             }
-
 
         });
     </script>
