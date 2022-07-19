@@ -22,6 +22,7 @@
 <body style="background-image: url('img/capa.jpg'); opacity:0.8">
 
     <section>
+        <div id="resp1"></div>
         <div class="box-login">
             <div class="title">
                 <h4>Login</h4>
@@ -34,19 +35,22 @@
                     </div>
                     <div class="form-group">
                         <label for="senha">Senha</label>
-                        <input type="password" class="form-control" name="senha" id="name" placeholder="Digite sua senha">
+                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Digite sua senha">
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-entrar">Logar</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-entrar">Logar</button> 
+
+                    <!-- <input type="button" class="btn btn-primary w-100 mt-2" id="btn-entrar" value="Entrar"> -->
 
                     <div id="resposta"></div>
+
                     <small>Não possui uma conta ?<a href="cadastro.php"> Cadastre-se</a></small>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- <script type="text/javascript">
+   <!--  <script type="text/javascript">
 
         $("#btn-entrar").on("click", function(event) {
 
@@ -57,7 +61,7 @@
 
             let resp = document.getElementById('resposta');
 
-            if(txt_email == "" || txt_senha == "") {
+            if (txt_email == "" || txt_senha == "") {
 
                 resp.innerHTML = "Preecha todos os campos";
                 resp.style.fontSize = "14px";
@@ -67,28 +71,35 @@
 
                 $.ajax({
 
-                    type: 'post',
-                    url: 'login.php',               
+                    type: "post",
+                    url: "login.php",
                     data: {
 
                         email: txt_email,
                         senha: txt_senha
+                        
                     },
-                    success: function(e) {
-                       
-                    }
+                    success: function(msg) {
 
-                })
+                        if (msg === 'Email ou Senha Invalidos') {
+                            $('#form').trigger('reset');
+                            resposta.innerText = "";
+                            $('#resp1').addClass('alert alert-success');
+                            $('#resp1').fadeIn().html(msg);
+                            setTimeout(function() {
+                                $('#resp1').fadeOut('slow');
+                            }, 3000);
+                        } 
+
+                    }
+                });
             }
 
         });
-    </script>
- -->
+    </script> -->
 
     <!-- Optional JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>

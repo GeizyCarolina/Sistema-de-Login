@@ -22,12 +22,14 @@
 <body style="background-image: url('img/capa.jpg'); opacity:0.8">
 
     <section>
+        <div id="resp1"></div>
         <div class="box-cad">
+
             <div class="title">
                 <h4>Cadastrar</h4>
             </div>
             <div class="content-cad">
-                <form method="post" action="insert-cadastro.php">
+                <form method="post" action="insert-cadastro.php" id="form">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nome</label>
                         <input type="email" class="form-control form-control-sm" name="nome" id="nome" placeholder="Digite seu nome">
@@ -48,10 +50,11 @@
                         <input type="checkbox" class="form-check-input" id="check" value="ok" name="check" checked="checked">
                         <small class="form-check-label" for="exampleCheck1">Concordo com os Termos <a href="">Politica de Privacidade</a></small>
                     </div>
+
                     <input type="button" class="btn btn-primary w-100 mt-2" id="btn-cadastro" value="Cadastrar">
 
                     <div id="resp"></div>
-                    <div id="resp1"></div>
+
                     <small>Já possui uma conta ?<a href="index.php"> Login</a></small>
                 </form>
             </div>
@@ -59,7 +62,6 @@
     </section>
 
     <script type="text/javascript">
-
         $("#btn-cadastro").on("click", function(event) {
 
             event.preventDefault();
@@ -87,7 +89,7 @@
                 resposta.style.fontSize = "15px";
 
             } else {
-               
+
                 $.ajax({
 
                     type: "post",
@@ -99,11 +101,22 @@
                         senha: txt_senha,
                         senha1: txt_senha1,
 
-                    },
-                    success: function(e) {
-                        resposta.innerHTML = "Cadastrado com sucesso! ";
-                        resposta.style.fontSize = "15px";
-                        resposta.style.color = "green";
+                    }, success: function(msg) {
+
+                        if (msg === 'Usuário Cadastrado com Sucesso') {
+                            $('#form').trigger('reset');
+                            resposta.innerText = "";
+                            $('#resp1').addClass('alert alert-success');
+                            $('#resp1').fadeIn().html(msg);
+                            setTimeout(function() {
+                                $('#resp1').fadeOut('slow');
+                                window.location.href = 'index.php';
+                            }, 3000);
+                        }else if(msg === 'Email já Cadastrado'){
+                            resposta.innerText = "";
+                            $('#resp1').addClass('alert alert-danger');
+                            $('#resp1').html(msg);
+                        }
 
                     }
                 });
@@ -111,6 +124,8 @@
 
         });
     </script>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

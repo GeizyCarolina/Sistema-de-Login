@@ -10,25 +10,39 @@ if(isset($_POST['nome']) || isset($_POST['email']) || isset($_POST['senha']) || 
     $senha = $_POST['senha'];
     $senha1 = $_POST['senha1'];
  
-   
-}else{
-    exit();
-}
 
-
-if($_POST['senha'] != $_POST['senha1']){
-    echo" Senhas divergentes ";
-
-}else{
-    
-    $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
-    $result = $pdo->prepare($sql);
-    $result->bindParam(':nome', $_POST['nome']);
-    $result->bindParam(':email', $_POST['email']);
-    $result->bindParam(':senha', $_POST['senha']);
+    $sql = "SELECT id, nome, email, senha FROM usuarios WHERE email = '$email' ";
+    $result = $pdo->query($sql);
     $result->execute();
+    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    if($result->rowCount() >= 1){
+        echo 'Email já Cadastrado';
+        
+    }else{
+        $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
+        $result = $pdo->prepare($sql);
+        $result->bindParam(':nome', $_POST['nome']);
+        $result->bindParam(':email', $_POST['email']);
+        $result->bindParam(':senha', $_POST['senha']);
+        $result->execute();
+
+        echo 'Usuário Cadastrado com Sucesso';
+    }
+
+       
+
+
+       
     
-}
+}else{
+
+    exit();
+} 
+
+   
+/*  */
+
 
 
 ?>
